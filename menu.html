@@ -21,6 +21,7 @@
     <a href="#cookies">Cookies 🍪</a>
     <a href="#my">Kiuh Malaysia 🌺</a>
     <a href="#all">All Items ⭐</a>
+    <a href="cart.html" class="cart-link">🛒 My Cart</a>
   </nav>
 
   <div class="container" id="pastry" style="padding-top: 0px;">
@@ -29,7 +30,6 @@
       <div class="product-card">
         <img src="./assets/Sardine-Puff.jpg" alt="Product" />
         <h3>Sardine Puff (25pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM 60.00</div>
         <button>Add to Cart</button>
       </div>
@@ -37,7 +37,6 @@
       <div class="product-card">
         <img src="./assets/Japanese-Cream-Puff.jpg" alt="Product" />
         <h3>Japanese Cream Puff (40pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM 75.00</div>
         <button>Add to Cart</button>
       </div>
@@ -45,7 +44,6 @@
       <div class="product-card">
         <img src="./assets/Eclairs.jpg" alt="Product" />
         <h3>Eclairs (30pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM 70.00</div>
         <button>Add to Cart</button>
       </div>
@@ -58,7 +56,6 @@
       <div class="product-card">
         <img src="./assets/Congo-Bars-Blondies-1.jpg" alt="Product" />
         <h3>Congo Bars/Blondies 9"</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM 70.00</div>
         <button>Add to Cart</button>
       </div>
@@ -66,15 +63,13 @@
       <div class="product-card">
         <img src="./assets/Pandan Gula Melaka Cake.jpg" alt="Product" />
         <h3>Pandan Gula Melaka Cake</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM 130.00</div>
         <button>Add to Cart</button>
       </div>
 
       <div class="product-card">
         <img src="./assets/Brownies.jpg" alt="Product" />
-        <h3>Brownies (Hazelnut Spread Topping)</h3>
-        <p>Short description of the item.</p>
+        <h3>Brownies (Hazelnut Topping)</h3>
         <div class="price">RM 75.00</div>
         <button>Add to Cart</button>
       </div>
@@ -84,27 +79,33 @@
   <div class="container" id="nibbles">
     <h2>Nibbles 🍨 (percut Available)</h2>
     <div class="product-grid">
-      <div class="product-card">
+      <div class="product-card" 
+          data-variations='{
+            "flavours":[
+              {"name":"Lychee","prices":[27.00,54.00,112.50]},
+              {"name":"Peach","prices":[27.00,54.00,112.50]},
+              {"name":"Mango","prices":[27.00,54.00,112.50]},
+              {"name":"Berries","prices":[36.00,72.00,150.00]}
+            ],
+            "quantities":["6 pcs","12 pcs","25 pcs"]
+          }'>
         <img src="./assets/Pannacotta.jpg" alt="Product" />
         <h3>Pannacotta (6/12/25 pcs)</h3>
-        <p>Short description of the item.</p>
-        <div class="price">RM 4.50 - RM 6.00</div>
+        <div class="price">RM 4.50 - RM 6.00 per pc</div>
         <button>Add to Cart</button>
       </div>
 
       <div class="product-card">
         <img src="./assets/Cheestarts.jpg" alt="Product" />
         <h3>Cheestarts (49pcs)</h3>
-        <p>Short description of the item.</p>
-        <div class="price">RM xx.00</div>
+        <div class="price">RM 130.00</div>
         <button>Add to Cart</button>
       </div>
 
       <div class="product-card">
         <img src="./assets/Creme Brulee.jpg" alt="Product" />
         <h3>Creme Brulee</h3>
-        <p>Short description of the item.</p>
-        <div class="price">RM xx.00</div>
+        <div class="price">RM 55.00</div>
         <button>Add to Cart</button>
       </div>
     </div>
@@ -116,7 +117,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -124,7 +124,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -132,7 +131,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -145,7 +143,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -153,7 +150,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -161,7 +157,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -174,7 +169,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -182,7 +176,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -190,7 +183,6 @@
       <div class="product-card">
         <img src="./assets/.jpg" alt="Product" />
         <h3>(pcs)</h3>
-        <p>Short description of the item.</p>
         <div class="price">RM xx.00</div>
         <button>Add to Cart</button>
       </div>
@@ -201,19 +193,64 @@
     <p>© Comellote. All rights reserved.</p>
   </footer>
 
-  <!-- Simple Login Page -->
-  <div class="container" id="login-page">
-  <h2>Delivery For</h2>
-  <form id="login-form">
-  <label>Name</label><br>
-  <input type="text" id="name" required style="width:100%;padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;"/><br>
+  <!-- 
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h2>Delivery For</h2>
 
-  <label>Address</label><br>
-  <input type="text" id="address" required style="width:100%;padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;"/><br>
+      <form id="login-form">
+        <label>Name</label>
+        <input type="text" id="name" required />
 
-  <button type="submit">Enter Shop</button>
-  </form>
+        <label>Address</label>
+        <input type="text" id="address" required />
+
+        <button type="submit">Enter Shop</button>
+      </form>
+    </div>
   </div>
+  Login Modal -->
   <script src="script.js"></script>
+
+
+  <!-- Cart Sidebar -->
+<div id="cartSidebar" class="cart-sidebar">
+  <h2>🛒 Your Cart</h2>
+  <button id="closeCart" class="close-cart">✖</button>
+  <div id="cartItems" class="cart-items">
+    <p>Your cart is empty.</p>
+  </div>
+  <div class="cart-total">
+    <strong>Total: RM <span id="cartTotal">0.00</span></strong>
+  </div>
+</div>
+
+<!-- Cart Button -->
+<button id="openCart" class="cart-button">🛒 Cart</button>
+
+<!-- Variation Modal -->
+<div id="variationModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2 id="variationProductName">Product Name</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Flavour</th>
+          <th>Set</th>
+        </tr>
+        <tr>
+          <td><div id="flavourOptions"></div></td>
+          <td><div id="quantityOptions"></div></td>
+        </tr>
+      </thead>
+    </table>
+
+    <!-- Price display -->
+    <div id="variationPrice" style="margin:10px 0; font-weight:bold; font-size:1.1em;">Price: RM 0.00</div>
+
+    <button id="variationAddToCart">Add to Cart</button>
+    <button id="variationCancel">Cancel</button>
+  </div>
+</div>
 </body>
 </html>
