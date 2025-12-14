@@ -69,7 +69,7 @@
 
       <div class="product-card">
         <img src="./assets/Brownies.jpg" alt="Product" />
-        <h3>Brownies (Hazelnut Topping)</h3>
+        <h3>Brownies (Hazelnut Topping) 9''</h3>
         <div class="price">RM 75.00</div>
         <button>Add to Cart</button>
       </div>
@@ -115,23 +115,16 @@
     <h2>Cookies 🍪</h2>
     <div class="product-grid">
       <div class="product-card">
-        <img src="./assets/.jpg" alt="Product" />
-        <h3>(pcs)</h3>
-        <div class="price">RM xx.00</div>
+        <img src="./assets/Seasalt Choc.jpg" alt="Product" />
+        <h3>Seasalt Choc Chip Cookies (~220gm)</h3>
+        <div class="price">RM 34.00</div>
         <button>Add to Cart</button>
       </div>
 
       <div class="product-card">
-        <img src="./assets/.jpg" alt="Product" />
-        <h3>(pcs)</h3>
-        <div class="price">RM xx.00</div>
-        <button>Add to Cart</button>
-      </div>
-
-      <div class="product-card">
-        <img src="./assets/.jpg" alt="Product" />
-        <h3>(pcs)</h3>
-        <div class="price">RM xx.00</div>
+        <img src="./assets/Soft Cookies.jpg" alt="Product" />
+        <h3>Soft Cookies</h3>
+        <div class="price">RM 3.50</div>
         <button>Add to Cart</button>
       </div>
     </div>
@@ -216,7 +209,7 @@
   <!-- Cart Sidebar -->
 <div id="cartSidebar" class="cart-sidebar">
   <h2>🛒 Your Cart</h2>
-  <button id="closeCart" class="close-cart">✖</button>
+  <button id="closeCart" class="close-cart" style="background-color: rgb(0, 0, 0);">✖</button>
   <div id="cartItems" class="cart-items">
     <p>Your cart is empty.</p>
   </div>
@@ -235,19 +228,18 @@
     <table>
       <thead>
         <tr>
-          <th>Flavour</th>
           <th>Set</th>
+          <th>Flavour</th>
         </tr>
         <tr>
-          <td><div id="flavourOptions"></div></td>
           <td><div id="quantityOptions"></div></td>
+          <td><div id="flavourOptions"></div></td>
         </tr>
       </thead>
     </table>
 
     <!-- Price display -->
     <div id="variationPrice" style="margin:10px 0; font-weight:bold; font-size:1.1em;">Price: RM 0.00</div>
-
     <button id="variationAddToCart">Add to Cart</button>
     <button id="variationCancel">Cancel</button>
   </div>

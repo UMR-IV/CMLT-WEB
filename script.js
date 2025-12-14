@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const productCards = document.querySelectorAll('.product-card');
+  const productCards = document.querySelectorAll('.product-card');
 
+  // Insert product descriptions dynamically
   productCards.forEach(card => {
     const name = card.querySelector('h3').innerText;
     const desc = productDescriptions[name] || "Short description of the item.";
     
     const p = document.createElement('p');
     p.innerText = desc;
-    p.style.whiteSpace = "pre-line"; // allows newlines if needed
+    p.style.whiteSpace = "pre-line"; // allows newlines
     card.insertBefore(p, card.querySelector('.price'));
   });
+
   // ---------------- LOGIN FORM ----------------
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
@@ -26,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartSidebar = document.getElementById('cartSidebar');
   document.getElementById('openCart').addEventListener('click', () => cartSidebar.classList.add('open'));
   document.getElementById('closeCart').addEventListener('click', () => cartSidebar.classList.remove('open'));
-
   let cart = [];
 
   // ---------------- VARIATION MODAL ----------------
@@ -38,8 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const variationCancel = document.getElementById('variationCancel');
   const variationPriceDiv = document.getElementById('variationPrice');
 
-  let selectedFlavourIndex = -1;   // -1 means none selected
-  let selectedQuantityIndex = -1;  // -1 means none selected
+  let selectedFlavourIndex = -1;       // single selection
+  let selectedFlavourIndices = [];     // multiple selection for 25pcs
+  let selectedQuantityIndex = -1;
   let variations = null;
 
   variationCancel.addEventListener('click', () => {
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const variationsData = card.getAttribute('data-variations');
 
       if (!variationsData) {
-        const priceText = card.querySelector('.price').innerText.replace('RM', '').trim();
+        const priceText = card.querySelector('.price').innerText.replace('RM','').trim();
         const price = parseFloat(priceText) || 0;
         addToCart(productName, price);
         return;
@@ -65,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Reset selections
       selectedFlavourIndex = -1;
+      selectedFlavourIndices = [];
       selectedQuantityIndex = -1;
       flavourOptionsDiv.innerHTML = '';
       quantityOptionsDiv.innerHTML = '';
@@ -75,11 +78,29 @@ document.addEventListener('DOMContentLoaded', () => {
       variations.flavours.forEach((f, i) => {
         const btnF = document.createElement('button');
         btnF.innerText = f.name;
+
         btnF.addEventListener('click', () => {
-          selectedFlavourIndex = i;
-          highlightSelection(flavourOptionsDiv, i);
+          const quantity = variations.quantities[selectedQuantityIndex];
+
+          if (quantity === "25 pcs") {
+            // allow max 2 flavours
+            if (selectedFlavourIndices.includes(i)) {
+              selectedFlavourIndices = selectedFlavourIndices.filter(idx => idx !== i);
+            } else {
+              if (selectedFlavourIndices.length < 2) selectedFlavourIndices.push(i);
+            }
+            highlightMultipleSelection(flavourOptionsDiv, selectedFlavourIndices);
+            selectedFlavourIndex = -1; // reset single selection
+          } else {
+            // single flavour selection
+            selectedFlavourIndex = i;
+            highlightSelection(flavourOptionsDiv, i);
+            selectedFlavourIndices = [];
+          }
+
           updateVariationPrice();
         });
+
         flavourOptionsDiv.appendChild(btnF);
       });
 
@@ -89,27 +110,58 @@ document.addEventListener('DOMContentLoaded', () => {
         btnQ.innerText = q;
         btnQ.addEventListener('click', () => {
           selectedQuantityIndex = i;
+
+          // Reset flavour selection on quantity change
+          selectedFlavourIndex = -1;
+          selectedFlavourIndices = [];
+          highlightSelection(flavourOptionsDiv, -1);
+
           highlightSelection(quantityOptionsDiv, i);
           updateVariationPrice();
         });
         quantityOptionsDiv.appendChild(btnQ);
       });
 
-      // Default price when nothing is selected
-      variationPriceDiv.innerText = `Price: RM 0.00`;
+      // Default price
+      variationPriceDiv.innerText = "Price: RM 0.00";
 
-      // Add to cart confirmation
+      // Add to cart
       variationAddToCart.onclick = () => {
-        if (selectedFlavourIndex === -1 || selectedQuantityIndex === -1) {
-          alert('Please select both a flavour and a quantity!');
-          return;
+        if (selectedQuantityIndex === -1) {
+            alert('Please select a quantity!');
+            return;
         }
-        const flavour = variations.flavours[selectedFlavourIndex];
+
+        let flavoursSelected = [];
         const quantity = variations.quantities[selectedQuantityIndex];
-        const price = flavour.prices[selectedQuantityIndex];
-        addToCart(`${productName} (${flavour.name} - ${quantity})`, price);
+
+        if (quantity === "25 pcs") {
+            if (selectedFlavourIndices.length === 0) {
+            alert('Please select at least 1 flavour!');
+            return;
+            }
+            flavoursSelected = selectedFlavourIndices.map(idx => variations.flavours[idx].name);
+        } else {
+            if (selectedFlavourIndex === -1) {
+            alert('Please select a flavour!');
+            return;
+            }
+            flavoursSelected = [variations.flavours[selectedFlavourIndex].name];
+        }
+
+        // compute price
+        let price = 0;
+        if (quantity === "25 pcs") {
+            const prices = selectedFlavourIndices.map(idx => variations.flavours[idx].prices[selectedQuantityIndex]);
+            price = prices.reduce((sum, p) => sum + p, 0) / prices.length; // average
+        } else {
+            price = variations.flavours[selectedFlavourIndex].prices[selectedQuantityIndex];
+        }
+
+        const flavourText = flavoursSelected.join(" & ");
+        addToCart(`${variationProductName.innerText} (${flavourText} - ${quantity})`, price);
         variationModal.style.display = 'none';
-      };
+    };
 
       variationModal.style.display = 'flex';
     });
@@ -122,16 +174,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function updateVariationPrice() {
-    if (!variations || selectedFlavourIndex === -1 || selectedQuantityIndex === -1) {
-      variationPriceDiv.innerText = `Price: RM 0.00`;
-      return;
-    }
-    const flavour = variations.flavours[selectedFlavourIndex];
-    const quantity = variations.quantities[selectedQuantityIndex];
-    const price = flavour.prices[selectedQuantityIndex];
-    variationPriceDiv.innerText = `Price: RM ${price.toFixed(2)}`;
+  function highlightMultipleSelection(container, indices) {
+    Array.from(container.children).forEach((btn, i) => {
+      btn.classList.toggle('selected', indices.includes(i));
+    });
   }
+
+  function updateVariationPrice() {
+  if (!variations || selectedQuantityIndex === -1) {
+    variationPriceDiv.innerText = "Price: RM 0.00";
+    return;
+  }
+
+  const quantity = variations.quantities[selectedQuantityIndex];
+  let price = 0;
+
+  if (quantity === "25 pcs" && selectedFlavourIndices.length > 0) {
+    // calculate average of selected flavours
+    const prices = selectedFlavourIndices.map(idx => variations.flavours[idx].prices[selectedQuantityIndex]);
+    price = prices.reduce((sum, p) => sum + p, 0) / prices.length;
+  } else if (selectedFlavourIndex !== -1) {
+    price = variations.flavours[selectedFlavourIndex].prices[selectedQuantityIndex];
+  }
+
+  variationPriceDiv.innerText = `Price: RM ${price.toFixed(2)}`;
+}
 
   function addToCart(name, price) {
     const existing = cart.find(item => item.name === name);
@@ -147,30 +214,59 @@ document.addEventListener('DOMContentLoaded', () => {
     let total = 0;
 
     if (cart.length === 0) {
-      cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
     } else {
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `<span>${item.name} x ${item.quantity}</span><span>RM ${(item.price * item.quantity).toFixed(2)}</span>`;
-        cartItemsDiv.appendChild(div);
-      });
+        const table = document.createElement('table');
+        table.style.width = '100%';
+        table.style.borderCollapse = 'collapse';
+
+        // ----- TABLE HEADER -----
+        table.innerHTML = `
+        <thead>
+            <tr>
+            <th style="text-align:left;">Item</th>
+            <th style="text-align:center;">Qty</th>
+            <th style="text-align:right;">Price (RM)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        `;
+
+        const tbody = table.querySelector('tbody');
+
+        // ----- TABLE ROWS -----
+        cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td style="padding:6px 0;">${item.name}</td>
+            <td style="text-align:center;">${item.quantity}</td>
+            <td style="text-align:right;">${itemTotal.toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+        });
+
+        cartItemsDiv.appendChild(table);
     }
 
     document.getElementById('cartTotal').innerText = total.toFixed(2);
   }
+
 });
 
+// Product descriptions
 const productDescriptions = {
   "Sardine Puff (25pcs)": "🥐 Hand laminated pastry\n🌶️ Pedas rate (6/10)\n🌟 Crunchy bila makan panas panas\n😋 10/10 insyallah",
   "Japanese Cream Puff (40pcs)": "🧊 Crunchy di atas bila sejuk\n🌟 Ice creamy like\n🧒 Children will love this!\n😋 10/10 insyallah",
   "Eclairs (30pcs)": "🍫 Dark chocolate berkualiti\n🧒 Children mesti suka sangat!\n🌟 Yang penting rasa tak manis sangat\n😋 10/10 insyallah",
   "Congo Bars/Blondies 9\"": "🍰 Definetely ramai yang suka\n🍫 Dark Chocolate\n😋 10/10 insyallah",
   "Pandan Gula Melaka Cake": "🧁 Available in cuppies of 12(RM60 @25 RM125)\n🌟 Paling favourite mak mak\n😋 10/10 insyallah",
-  "Brownies (Hazelnut Topping)": "Fudgy brownies topped with crunchy hazelnuts.",
-  "Pannacotta (6/12/25 pcs)": "Smooth creamy dessert available in multiple flavours.",
-  "Cheestarts (49pcs)": "Savory cheese tarts with golden crust.",
-  "Creme Brulee": "Classic creamy dessert with caramelized sugar top."
-  // Add more products here
+  "Brownies (Hazelnut Topping) 9''": "🍫 Dark chocolate Hazelnut Spread untuk topping\n🍰 Fudggy\n✅ Wordings boleh\n➕ Toppping extra with additional charges",
+  "Pannacotta (6/12/25 pcs)": "🕰️ 3-4 days prior to date booking\n💵 Price per piece (Lychee/Peach/Mango RM4.5 @ Berries RM6)\n⭐ Can choose up to 2 flavours if order 25pcs",
+  "Cheestarts (49pcs)": "🕰️ 3-4 days prior to date booking\n💎 2  pilihan toppings (assorted @ fruits)\n🍫 Toppings custom boleh tulis dalam customer request dalam cart XXXXXXXXXXXXXXXXXXXXX_RECONFIRM_XXXXXXXXXXXXXXXXXXXXXXXXXXXXx\n✅ Toppings subject to availability",
+  "Creme Brulee": "25 pcs mini pack",
+  "Seasalt Choc Chip Cookies (~220gm)": "🍬 Available untuk doorgifts(>RM5/pack)\n🍫 Dark Chocolate berkualiti\n😋 Ketagih rate 9/10\n🍡 Manis sedang sedang + seasalt flakes sikit dekat atas cookies",
+  "Soft Cookies": "🍫 Dark Chocolate\n🍬 Not too sweet\n🤏 Too sedap to resist"
 };
