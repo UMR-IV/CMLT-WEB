@@ -286,7 +286,7 @@ const productDescriptions = {
   "Congo Bars/Blondies 9\"": "🍰 Definetely ramai yang suka\n🍫 Dark Chocolate\n😋 10/10 insyallah",
   "Pandan Gula Melaka Cake": "🧁 Available in cuppies of 12(RM60 @25 RM125)\n🌟 Paling favourite mak mak\n😋 10/10 insyallah",
   "Brownies (Hazelnut Topping) 9''": "🍫 Dark chocolate Hazelnut Spread untuk topping\n🍰 Fudggy\n✅ Wordings boleh\n➕ Toppping extra with additional charges",
-  "Pannacotta (6/12/25 pcs)": "🕰️ 3-4 days prior to date booking\n💵 Price per piece (Lychee/Peach/Mango RM4.5 @ Berries RM6)\n⭐ Can choose up to 2 flavours if order 25pcs",
+  "Pannacotta": "🕰️ 3-4 days prior to date booking\n💵 Price per piece (Lychee/Peach/Mango RM4.5 @ Berries RM6)\n⭐ Can choose up to 2 flavours if order 25pcs",
   "Cheestarts (49pcs)": "🕰️ 3-4 days prior to date booking\n💎 2  pilihan toppings (assorted @ fruits)\n🍫 Toppings custom boleh tulis dalam customer request dalam cart XXXXXXXXXXXXXXXXXXXXX_RECONFIRM_XXXXXXXXXXXXXXXXXXXXXXXXXXXXx\n✅ Toppings subject to availability",
   "Creme Brulee": "25 pcs mini pack",
   "Seasalt Choc Chip Cookies (~220gm)": "🍬 Available untuk doorgifts(>RM5/pack)\n🍫 Dark Chocolate berkualiti\n😋 Ketagih rate 9/10\n🍡 Manis sedang sedang + seasalt flakes sikit dekat atas cookies",
