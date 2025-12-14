@@ -16,13 +16,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
     loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const address = document.getElementById('address').value;
-      localStorage.setItem('shopUser', JSON.stringify({ name, address }));
-      document.getElementById('loginModal').style.display = 'none';
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+
+        localStorage.setItem('shopUser', JSON.stringify({ name, address }));
+
+        updateCartUserInfo(); // 👈 ADD THIS
+        document.getElementById('loginModal').style.display = 'none';
     });
   }
+
+  function updateCartUserInfo() {
+    const userInfoDiv = document.getElementById('cartUserInfo');
+    const userData = localStorage.getItem('shopUser');
+
+    if (!userData) {
+        userInfoDiv.innerHTML = '<em>No delivery info</em>';
+        return;
+    }
+
+    const { name, address } = JSON.parse(userData);
+
+    userInfoDiv.innerHTML = `
+        <strong>Delivery For:</strong>
+        ${name}<br>
+        <small>${address}</small>
+    `;
+    }
 
   // ---------------- CART SIDEBAR ----------------
   const cartSidebar = document.getElementById('cartSidebar');
