@@ -1,5 +1,5 @@
 import { database, auth } from './firebase-config.js';
-import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+import { ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +15,46 @@ document.addEventListener('DOMContentLoaded', () => {
     p.style.whiteSpace = "pre-line"; // allows newlines
     card.insertBefore(p, card.querySelector('.price'));
   });
+
+  // ============== BLOCKED DATES MANAGEMENT ==============
+  let blockedDates = [];
+  const deliveryDateInput = document.getElementById('deliveryDate');
+  const dateWarning = document.getElementById('dateWarning');
+
+  // Fetch blocked dates from Firebase
+  const blockedDatesRef = ref(database, 'blockedDates');
+  onValue(blockedDatesRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      blockedDates = Object.keys(data).filter(date => data[date] === true);
+      updateDateInputConstraints();
+    }
+  }, (error) => {
+    console.log('No blocked dates yet or permission denied');
+  });
+
+  // Set minimum date to today and disable blocked dates
+  function updateDateInputConstraints() {
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];
+    deliveryDateInput.min = minDate;
+
+    // Add event listener to check if selected date is blocked
+    deliveryDateInput.addEventListener('change', (e) => {
+      const selectedDate = e.target.value;
+      if (blockedDates.includes(selectedDate)) {
+        dateWarning.style.display = 'block';
+        deliveryDateInput.value = '';
+        deliveryDateInput.classList.add('error');
+      } else {
+        dateWarning.style.display = 'none';
+        deliveryDateInput.classList.remove('error');
+      }
+    });
+  }
+
+  // Call on initial load
+  updateDateInputConstraints();
 
   // ---------------- LOGIN FORM ----------------
   const loginForm = document.getElementById('login-form');
