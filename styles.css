@@ -204,11 +204,13 @@ header h1 {
   height: 100%;
   background: #fff;
   box-shadow: -5px 0 15px rgba(0,0,0,0.3);
-  padding: 20px;
+  padding: 15px;
   z-index: 1000;
   transition: right 0.3s ease;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .cart-sidebar.open {
@@ -216,7 +218,9 @@ header h1 {
 }
 
 .cart-sidebar h2 {
-  margin-top: 0;
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+  flex-shrink: 0;
 }
 
 .cart-sidebar.open ~ .cart-button {
@@ -225,37 +229,133 @@ header h1 {
 
 .close-cart {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
+  padding: 5;
+}
+
+.cart-user-info {
+  background: #f8f8f8;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.cart-user-info strong {
+  display: block;
+  margin-bottom: 3px;
 }
 
 .cart-items {
   flex: 1;
   overflow-y: auto;
-  margin-top: 20px;
-}
-
-.cart-items {
-  flex: 1;
-  overflow-y: auto;
-  margin-top: 20px;
+  margin: 8px 0;
+  min-height: 40px;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .cart-item span {
   margin-left: 10px;
 }
 
+.cart-delivery-date {
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.cart-delivery-date label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.cart-delivery-date input[type="date"] {
+  width: 100%;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.cart-delivery-date input[type="date"]:focus {
+  outline: none;
+  border-color: #ff8c94;
+}
+
+.cart-delivery-date input[type="date"]:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+#dateWarning {
+  display: block;
+  font-size: 11px;
+  margin-top: 2px;
+  color: #d32f2f;
+}
+
+.cart-request {
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.cart-request label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.cart-request textarea {
+  width: 100%;
+  resize: none;
+  padding: 6px;
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 50px;
+}
+
+.cart-request textarea:focus {
+  outline: none;
+  border-color: #ff8c94;
+}
+
 .cart-total {
-  padding: 30px 0px;
-  font-size: 18px;
+  padding: 10px 0;
+  font-size: 13px;
   font-weight: bold;
   border-top: 1px solid #ddd;
   background: #fff;
   text-align: right;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkout-button {
+  color: white;
+  background: #ff8c94;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  border: none;
+  font-weight: bold;
+  width: 100%;
 }
 
 /* Cart Button */
@@ -371,45 +471,15 @@ nav a.cart-link {
 
 .cart-user-info {
   background: #f8f8f8;
-  padding: 10px;
+  padding: 8px;
   border-radius: 6px;
-  font-size: 14px;
-  margin-bottom: 15px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  line-height: 1.3;
 }
 
 .cart-user-info strong {
   display: block;
-}
-
-.checkout-button {
-  color: white;
-  padding: 12px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.cart-request {
-  margin-top: 15px;
-}
-
-.cart-request label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.cart-request textarea {
-  width: 100%;
-  resize: none;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-.cart-request textarea:focus {
-  outline: none;
-  border-color: #ff8c94;
+  margin-bottom: 3px;
 }

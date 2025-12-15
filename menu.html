@@ -217,6 +217,19 @@
   <div id="cartItems" class="cart-items">
     <p>Your cart is empty.</p>
   </div>
+  
+  <!-- Delivery Date Selection -->
+  <div class="cart-delivery-date">
+    <label for="deliveryDate"><strong>📅 Delivery Date</strong></label>
+    <input 
+      type="date" 
+      id="deliveryDate" 
+      required
+    />
+    <small id="dateWarning" style="color: #d32f2f; display: none;">This date is not available</small>
+  </div>
+
+  <!-- Customer Request -->
   <div class="cart-request">
     <label for="customerRequest"><strong>Customer Request</strong></label>
     <textarea
@@ -225,8 +238,9 @@
       rows="3"
     ></textarea>
   </div>
+
   <div class="cart-total">
-    <strong style="padding: 20px;">Total: RM <span id="cartTotal">0.00</span></strong>
+    <strong style="padding: 10px 0; display: block;">Total: RM <span id="cartTotal">0.00</span></strong>
     <button id="checkoutButton" class="checkout-button">Checkout</button>
   </div>
 
