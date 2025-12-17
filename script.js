@@ -433,6 +433,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ==================== SMOOTH SCROLL FOR NAV LINKS WITH OFFSET ====================
+  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+          e.preventDefault(); // prevent instant jump
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+              let offsetPosition;
+
+              if (targetId === '#pastry') {
+                  // Scroll to very top for #pastry
+                  offsetPosition = 0;
+              } else {
+                  // Scroll 20px above other sections
+                  offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 20;
+              }
+
+              window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth"
+              });
+          }
+      });
+  });
 });
 
 // Product descriptions
