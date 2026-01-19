@@ -366,7 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const paymentReceiptInput = document.getElementById('paymentReceipt');
   if (submitOrderBtn) {
     submitOrderBtn.addEventListener('click', async () => {
-      if (!paymentReceiptInput.files.length) { alert('Please upload your payment receipt!'); return; }
 
       const receiptFile = paymentReceiptInput.files[0];
       const userData = JSON.parse(localStorage.getItem('shopUser'));
@@ -461,11 +460,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---------------- PRODUCT DESCRIPTIONS ----------------
 const productDescriptions = {
-  "Sardine Puff (25pcs)": "🥐 Hand laminated pastry\n🌶️ Pedas rate (6/10)\n🌟 Crunchy bila makan panas panas\n😋 10/10 insyallah",
-  "Japanese Cream Puff (40pcs)": "🧊 Crunchy di atas bila sejuk\n🌟 Ice creamy like\n🧒 Children will love this!\n😋 10/10 insyallah",
-  "Eclairs (30pcs)": "🍫 Dark chocolate berkualiti\n🧒 Children mesti suka sangat!\n🌟 Yang penting rasa tak manis sangat\n😋 10/10 insyallah",
-  "Congo Bars/Blondies 9\"": "🍰 Definetely ramai yang suka\n🍫 Dark Chocolate\n😋 10/10 insyallah",
-  "Pandan Gula Melaka Cake": "🧁 Available in cuppies of 12(RM60 @25 RM125)\n🌟 Paling favourite mak mak\n😋 10/10 insyallah",
+  "Sardine Puff (25pcs)": "🥐 Hand laminated pastry\n🌶️ Pedas rate (6/10)\n🌟 Crunchy bila makan panas panas\n😋 10/10 Good!",
+  "Japanese Cream Puff (40pcs)": "🧊 Crunchy di atas bila sejuk\n🌟 Ice creamy like\n🧒 Children will love this!\n😋 10/10 Good!",
+  "Eclairs (30pcs)": "🍫 Dark chocolate berkualiti\n🧒 Children mesti suka sangat!\n🌟 Yang penting rasa tak manis sangat\n😋 10/10 Good!",
+  "Congo Bars/Blondies 9\"": "🍰 Definetely ramai yang suka\n🍫 Dark Chocolate\n😋 10/10 Good!",
+  "Pandan Gula Melaka Cake": "🧁 Available in cuppies of 12(RM60 @25 RM125)\n🌟 Paling favourite mak mak\n😋 10/10 Good!",
   "Brownies (Hazelnut Topping) 9''": "🍫 Dark chocolate Hazelnut Spread untuk topping\n🍰 Fudggy\n✅ Wordings boleh\n➕ Toppping extra with additional charges",
   "Pannacotta": "🕰️ 3-4 days prior to date booking\n💵 Price per piece (Lychee/Peach/Mango RM4.5 @ Berries RM6)\n⭐ Can choose up to 2 flavours if order 25pcs",
   "Cheestarts (49pcs)": "🕰️ 3-4 days prior to date booking\n💎 2  pilihan toppings (assorted @ fruits)\n🍫 Toppings custom boleh tulis dalam customer request dalam cart\n✅ Toppings subject to availability",
